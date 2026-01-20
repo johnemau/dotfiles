@@ -79,30 +79,11 @@ sleep .5
 	&& sudo apt-get update \
 	&& sudo apt-get install gh -y
 
-# install rapid
-update-tool rapid
-
-# install git dd
-# https://datadoghq.atlassian.net/wiki/spaces/FF/pages/5695472050/Git+dd#On-macOS
-update-tool git-dd
-
 # wait because github may return 429 (too many requests)
 sleep .5
 
 # https://github.com/ajeetdsouza/zoxide?tab=readme-ov-file#installation
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-
-# Setup FS Monitoring
-# https://datadoghq.atlassian.net/wiki/spaces/FF/pages/4594926370/Git+performance+settings+for+large+repos#core.fsmonitor
-## Install watchman
-sudo apt-get --assume-yes install watchman
-## Copy the sample hook from the git repo to your hooks dir (need to be done per-repo)
-curl https://raw.githubusercontent.com/git/git/refs/tags/v2.49.0/templates/hooks/fsmonitor-watchman.sample > .git/hooks/fsmonitor-watchman && chmod +x .git/hooks/fsmonitor-watchman
-## Enable fsmonitor (need to be done per-repo)
-git config --local core.fsmonitor .git/hooks/fsmonitor-watchman
-
-# Setup git branch prefixe
-git dd add-branch-prefix john.emau
 
 # https://github.com/pup-mikegraf/workspace-dotfiles/blob/87fcbaff976e2c20a09ff3d0d8fd2e42553d09a2/install.sh#L32C1-L32C32
 touch $HOME/.dotfiles_installed
